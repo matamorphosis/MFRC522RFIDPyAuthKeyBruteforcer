@@ -22,7 +22,7 @@ signal.signal(signal.SIGINT, end_read)
 MIFAREReader = MFRC522.MFRC522()
 
 # Welcome message
-print ("Default RFID Key Bruteforcer")
+print ("RFID Key Bruteforcer")
 print ("Written by Matthew Brittain, Built on https://github.com/mxgxw/MFRC522-python")
 print ("Press Ctrl-C to stop.")
 
