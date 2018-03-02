@@ -11,3 +11,7 @@ So get rid of 0x, if your key looks like:
 
 Make sure to have an Mifare RC522 RFID Reader setup and running in order to use this software.
 This software is built on top of https://github.com/mxgxw/MFRC522-python.
+
+
+# Dependencies
+To install dependencies run `pip install -r requirements.txt`.
