@@ -20,7 +20,7 @@ def end_read(signal, frame):
 signal.signal(signal.SIGINT, end_read)
 
 # Create an object of the class MFRC522
-MIFAREReader = mfrc522.MFRC522()
+mifare_reader = mfrc522.MFRC522()
 
 # Welcome message
 print("RFID Key Bruteforcer")
@@ -31,17 +31,17 @@ print("Press Ctrl-C to stop.")
 while continue_reading:
     
     # Scan for cards    
-    (status, TagType) = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
+    (status, TagType) = mifare_reader.mfrc522_request(mifare_reader.PICC_REQIDL)
 
     # If a card is found
-    if status == MIFAREReader.MI_OK:
+    if status == mifare_reader.MI_OK:
         print("Card detected")
     
         # Get the UID of the card
-        (status, uid) = MIFAREReader.MFRC522_Anticoll()
+        (status, uid) = mifare_reader.mfrc522_anticoll()
 
         # If we have the UID, continue
-        if status == MIFAREReader.MI_OK:
+        if status == mifare_reader.MI_OK:
 
             # Print UID
             print("Card read UID: "+str(uid[0])+","+str(uid[1])+","+str(uid[2])+","+str(uid[3]))
@@ -59,15 +59,15 @@ while continue_reading:
                 print(key)
 
                 # Select the scanned tag
-                MIFAREReader.MFRC522_SelectTag(uid)
+                mifare_reader.mfrc522_select_tag(uid)
 
                 # Authenticate
-                status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 8, key, uid)
+                status = mifare_reader.mfrc522_auth(mifare_reader.PICC_AUTHENT1A, 8, key, uid)
 
                 # Check if authenticated
-                if status == MIFAREReader.MI_OK:
-                    MIFAREReader.MFRC522_Read(8)
-                    MIFAREReader.MFRC522_StopCrypto1()
+                if status == mifare_reader.MI_OK:
+                    mifare_reader.mfrc522_read(8)
+                    mifare_reader.mfrc522_stop_crypto1()
                     print("The correct key is " + key)
 
                 else:

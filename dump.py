@@ -20,23 +20,23 @@ def end_read(signal, frame):
 signal.signal(signal.SIGINT, end_read)
 
 # Create an object of the class MFRC522
-MIFAREReader = mfrc522.MFRC522()
+mifare_reader = mfrc522.MFRC522()
 
 # This loop keeps checking for chips. If one is near it will get the UID and authenticate
 while continue_reading:
     
     # Scan for cards    
-    (status, TagType) = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
+    (status, TagType) = mifare_reader.mfrc522_request(mifare_reader.PICC_REQIDL)
 
     # If a card is found
-    if status == MIFAREReader.MI_OK:
+    if status == mifare_reader.MI_OK:
         print("Card detected")
     
     # Get the UID of the card
-    (status, uid) = MIFAREReader.MFRC522_Anticoll()
+    (status, uid) = mifare_reader.mfrc522_anticoll()
 
     # If we have the UID, continue
-    if status == MIFAREReader.MI_OK:
+    if status == mifare_reader.MI_OK:
 
         # Print UID
         print("Card read UID: "+str(uid[0])+","+str(uid[1])+","+str(uid[2])+","+str(uid[3]))
@@ -45,10 +45,10 @@ while continue_reading:
         key = [0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF]
         
         # Select the scanned tag
-        MIFAREReader.MFRC522_SelectTag(uid)
+        mifare_reader.mfrc522_select_tag(uid)
 
         # Dump the data
-        MIFAREReader.MFRC522_DumpClassic1K(key, uid)
+        mifare_reader.mfrc522_dump_classic1k(key, uid)
 
         # Stop
-        MIFAREReader.MFRC522_StopCrypto1()
+        mifare_reader.mfrc522_stop_crypto1()
