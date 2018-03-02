@@ -116,10 +116,12 @@ class MFRC522:
     def mfrc522_reset(self):
         self.write_mfrc522(self.CommandReg, self.PCD_RESETPHASE)
 
-    def write_mfrc522(self, addr, val):
+    @staticmethod
+    def write_mfrc522(addr, val):
         spi.transfer(((addr << 1) & 0x7E, val))
 
-    def read_mfrc522(self, addr):
+    @staticmethod
+    def read_mfrc522(addr):
         val = spi.transfer((((addr << 1) & 0x7E) | 0x80, 0))
         return val[1]
 
