@@ -35,38 +35,38 @@ while continue_reading:
     if status == MIFAREReader.MI_OK:
         print ("Card detected")
     
-    	# Get the UID of the card
-    	(status,uid) = MIFAREReader.MFRC522_Anticoll()
+        # Get the UID of the card
+        (status,uid) = MIFAREReader.MFRC522_Anticoll()
 
-    	# If we have the UID, continue
-    	if status == MIFAREReader.MI_OK:
+        # If we have the UID, continue
+        if status == MIFAREReader.MI_OK:
 
-        	# Print UID
-        	print ("Card read UID: "+str(uid[0])+","+str(uid[1])+","+str(uid[2])+","+str(uid[3]))
+            # Print UID
+            print ("Card read UID: "+str(uid[0])+","+str(uid[1])+","+str(uid[2])+","+str(uid[3]))
     
-        	# This is the default key for authentication
-        	# key = [0xFF,0xFF,0xFF,0xFF,0xFF,0xFF]
+            # This is the default key for authentication
+            # key = [0xFF,0xFF,0xFF,0xFF,0xFF,0xFF]
             # print (key)
 
-        	lines = [line.rstrip('\n') for line in open('keys.txt')]
+            lines = [line.rstrip('\n') for line in open('keys.txt')]
 
             for l in lines:
                 keya = [ byte.strip() for byte in l.split(',') ]
-            	    key = [int(byte,16) for byte in keya]
-            	    print ("Trying the following key:")
+                    key = [int(byte,16) for byte in keya]
+                    print ("Trying the following key:")
                     print (key)
 
-            	    # Select the scanned tag
-            	    MIFAREReader.MFRC522_SelectTag(uid)
+                    # Select the scanned tag
+                    MIFAREReader.MFRC522_SelectTag(uid)
 
-            	    # Authenticate
-            	    status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 8, key, uid)
+                    # Authenticate
+                    status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 8, key, uid)
 
-            	    # Check if authenticated
-            	    if status == MIFAREReader.MI_OK:
-                    	MIFAREReader.MFRC522_Read(8)
-                    	MIFAREReader.MFRC522_StopCrypto1()
-                    	print ("The correct key is " + key)
-                
+                    # Check if authenticated
+                    if status == MIFAREReader.MI_OK:
+                        MIFAREReader.MFRC522_Read(8)
+                        MIFAREReader.MFRC522_StopCrypto1()
+                        print ("The correct key is " + key)
+
                     else:
-               	    	print ("Authentication error")
+                           print ("Authentication error")
