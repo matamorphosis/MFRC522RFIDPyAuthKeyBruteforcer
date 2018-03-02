@@ -147,8 +147,6 @@ class MFRC522:
         status = self.MI_ERR
         irq_end = 0x00
         wait_irq = 0x00
-        last_bits = None
-        n = 0
         i = 0
 
         if command == self.PCD_AUTHENT:
@@ -212,8 +210,6 @@ class MFRC522:
         return status, back_data, back_len
 
     def mfrc522_request(self, req_mode):
-        status = None
-        back_bits = None
         tag_type = []
 
         self.write_mfrc522(self.BitFramingReg, 0x07)
@@ -227,7 +223,6 @@ class MFRC522:
         return status, back_bits
 
     def mfrc522_anticoll(self):
-        back_data = []
         ser_num_check = 0
 
         ser_num = []
@@ -272,7 +267,6 @@ class MFRC522:
         return p_out_data
 
     def mfrc522_select_tag(self, ser_num):
-        back_data = []
         buf = list()
         buf.append(self.PICC_SElECTTAG)
         buf.append(0x70)
@@ -337,7 +331,6 @@ class MFRC522:
         (status, back_data, back_len) = self.mfrc522_to_card(self.PCD_TRANSCEIVE, recv_data)
         if not(status == self.MI_OK):
             print("Error while reading!")
-        i = 0
         if len(back_data) == 16:
             print("Sector "+str(block_addr)+" "+str(back_data))
 
