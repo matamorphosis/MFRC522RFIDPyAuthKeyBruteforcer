@@ -52,21 +52,21 @@ while continue_reading:
 
             for l in lines:
                 keya = [ byte.strip() for byte in l.split(',') ]
-                    key = [int(byte,16) for byte in keya]
-                    print ("Trying the following key:")
-                    print (key)
+                key = [int(byte,16) for byte in keya]
+                print ("Trying the following key:")
+                print (key)
 
-                    # Select the scanned tag
-                    MIFAREReader.MFRC522_SelectTag(uid)
+                # Select the scanned tag
+                MIFAREReader.MFRC522_SelectTag(uid)
 
-                    # Authenticate
-                    status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 8, key, uid)
+                # Authenticate
+                status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 8, key, uid)
 
-                    # Check if authenticated
-                    if status == MIFAREReader.MI_OK:
-                        MIFAREReader.MFRC522_Read(8)
-                        MIFAREReader.MFRC522_StopCrypto1()
-                        print ("The correct key is " + key)
+                # Check if authenticated
+                if status == MIFAREReader.MI_OK:
+                    MIFAREReader.MFRC522_Read(8)
+                    MIFAREReader.MFRC522_StopCrypto1()
+                    print ("The correct key is " + key)
 
-                    else:
-                           print ("Authentication error")
+                else:
+                    print ("Authentication error")
