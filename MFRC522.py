@@ -128,7 +128,7 @@ class MFRC522:
         self.Write_MFRC522(reg, tmp | mask)
 
     def ClearBitMask(self, reg, mask):
-        tmp = self.Read_MFRC522(reg);
+        tmp = self.Read_MFRC522(reg)
         self.Write_MFRC522(reg, tmp & (~mask))
 
     def AntennaOn(self):
@@ -160,7 +160,7 @@ class MFRC522:
         self.ClearBitMask(self.CommIrqReg, 0x80)
         self.SetBitMask(self.FIFOLevelReg, 0x80)
 
-        self.Write_MFRC522(self.CommandReg, self.PCD_IDLE);
+        self.Write_MFRC522(self.CommandReg, self.PCD_IDLE)
 
         while(i<len(sendData)):
             self.Write_MFRC522(self.FIFODataReg, sendData[i])
@@ -203,7 +203,7 @@ class MFRC522:
                     i = 0
                     while i<n:
                         backData.append(self.Read_MFRC522(self.FIFODataReg))
-                        i = i + 1;
+                        i = i + 1
             else:
                status = self.MI_ERR
 
@@ -217,7 +217,7 @@ class MFRC522:
 
         self.Write_MFRC522(self.BitFramingReg, 0x07)
 
-        TagType.append(reqMode);
+        TagType.append(reqMode)
         (status,backData,backBits) = self.MFRC522_ToCard(self.PCD_TRANSCEIVE, TagType)
 
         if ((status != self.MI_OK) | (backBits != 0x10)):
@@ -254,7 +254,7 @@ class MFRC522:
 
     def CalulateCRC(self, pIndata):
         self.ClearBitMask(self.DivIrqReg, 0x04)
-        self.SetBitMask(self.FIFOLevelReg, 0x80);
+        self.SetBitMask(self.FIFOLevelReg, 0x80)
         i = 0
         while i<len(pIndata):
             self.Write_MFRC522(self.FIFODataReg, pIndata[i])
@@ -382,7 +382,7 @@ class MFRC522:
     def MFRC522_Init(self):
         GPIO.output(self.NRSTPD, 1)
 
-        self.MFRC522_Reset();
+        self.MFRC522_Reset()
 
 
         self.Write_MFRC522(self.TModeReg, 0x8D)
