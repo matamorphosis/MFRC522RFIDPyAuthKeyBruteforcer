@@ -53,8 +53,7 @@ while continue_reading:
             lines = [line.rstrip('\n') for line in open('keys.txt')]
 
             for l in lines:
-                keya = [byte.strip() for byte in l.split(',')]
-                key = [int(byte, 16) for byte in keya]
+                key = [int(byte.strip(), 16) for byte in l.split(',')]
                 print("Trying the following key:")
                 print(key)
 
