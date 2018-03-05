@@ -22,9 +22,9 @@ signal.signal(signal.SIGINT, end_read)
 MIFAREReader = MFRC522.MFRC522()
 
 # Welcome message
-print ("RFID Key Bruteforcer")
-print ("Written by Matthew Brittain, Built on https://github.com/mxgxw/MFRC522-python")
-print ("Press Ctrl-C to stop.")
+print ("[i] RFID Key Bruteforcer")
+print ("[i] Written by Matthew Brittain, Built on https://github.com/mxgxw/MFRC522-python")
+print ("[i] Press Ctrl-C to stop.")
 
 # This loop keeps checking for chips. If one is near it will get the UID and authenticate
 while continue_reading:
@@ -34,7 +34,7 @@ while continue_reading:
 
     # If a card is found
     if status == MIFAREReader.MI_OK:
-        print ("Card detected")
+        print ("[+] Card detected")
     
     	# Get the UID of the card
     	(status,uid) = MIFAREReader.MFRC522_Anticoll()
@@ -49,15 +49,16 @@ while continue_reading:
         	# key = [0xFF,0xFF,0xFF,0xFF,0xFF,0xFF]
             # print ("[+]" + key)
             try:
+                # Import UIDs from text file
         	    lines = [line.rstrip('\n') for line in open('keys.txt')]
             except:
                 sys.exit("[-] Failed to open file.")
                 
             for l in lines:
+                # Strip the imported UID of commas
                 keya = [ byte.strip() for byte in l.split(',') ]
             	    key = [int(byte,16) for byte in keya]
-            	    print ("Trying the following key:")
-                    print (key)
+            	    print ("[i] Trying the key: " + key)
 
             	    # Select the scanned tag
             	    MIFAREReader.MFRC522_SelectTag(uid)
