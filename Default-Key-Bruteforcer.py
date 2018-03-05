@@ -51,7 +51,7 @@ while continue_reading:
             # print (key)
             try:
         	    lines = [line.rstrip('\n') for line in open('keys.txt')]
-            catch:
+            except:
                 sys.exit("[-] Failed to open file.")
                 
             for l in lines:
