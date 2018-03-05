@@ -5,6 +5,7 @@ import RPi.GPIO as GPIO
 import MFRC522
 import signal
 import ast
+import sys
 
 continue_reading = True
 
@@ -43,14 +44,16 @@ while continue_reading:
     	if status == MIFAREReader.MI_OK:
 
         	# Print UID
-        	print ("Card read UID: "+str(uid[0])+","+str(uid[1])+","+str(uid[2])+","+str(uid[3]))
+        	print ("[+] Card read UID: "+str(uid[0])+","+str(uid[1])+","+str(uid[2])+","+str(uid[3]))
     
         	# This is the default key for authentication
         	# key = [0xFF,0xFF,0xFF,0xFF,0xFF,0xFF]
             # print (key)
-
-        	lines = [line.rstrip('\n') for line in open('keys.txt')]
-
+            try:
+        	    lines = [line.rstrip('\n') for line in open('keys.txt')]
+            catch:
+                sys.exit("[-] Failed to open file.")
+                
             for l in lines:
                 keya = [ byte.strip() for byte in l.split(',') ]
             	    key = [int(byte,16) for byte in keya]
@@ -67,7 +70,7 @@ while continue_reading:
             	    if status == MIFAREReader.MI_OK:
                     	MIFAREReader.MFRC522_Read(8)
                     	MIFAREReader.MFRC522_StopCrypto1()
-                    	print ("The correct key is " + key)
+                    	print ("[+] The correct key is " + key)
                 
                     else:
-               	    	print ("Authentication error")
+               	    	print ("[-] Authentication error")
