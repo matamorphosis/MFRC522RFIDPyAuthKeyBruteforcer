@@ -22,9 +22,9 @@ signal.signal(signal.SIGINT, end_read)
 MIFAREReader = MFRC522.MFRC522()
 
 # Welcome message
-print ("[i] RFID Key Bruteforcer")
-print ("[i] Written by Matthew Brittain, Built on https://github.com/mxgxw/MFRC522-python")
-print ("[i] Press Ctrl-C to stop.")
+print ("[i] RFID Key Bruteforcer.")
+print ("[i] Written by Matthew Brittain, Built on https://github.com/mxgxw/MFRC522-python.")
+print ("[i] Press Ctrl-C to stop the program.")
 
 # This loop keeps checking for chips. If one is near it will get the UID and authenticate
 while continue_reading:
@@ -47,7 +47,6 @@ while continue_reading:
     
         	# This is the default key for authentication
         	# key = [0xFF,0xFF,0xFF,0xFF,0xFF,0xFF]
-            # print ("[+]" + key)
             try:
                 # Import UIDs from text file
         	    lines = [line.rstrip('\n') for line in open('keys.txt')]
