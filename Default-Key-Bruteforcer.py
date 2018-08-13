@@ -5,7 +5,7 @@ import RPi.GPIO as GPIO, MFRC522, signal, sys, time
 continue_reading = True
 
 # Capture SIGINT for cleanup when the script is aborted.
-def end_read(signal,frame):
+def end_read(signal, frame):
     global continue_reading
     print("[!] INTERRUPT [!] - Ctrl+C captured, stopping program and cleaning up.")
     continue_reading = False
@@ -34,14 +34,14 @@ while continue_reading:
     
     for newline in newlines:
         # Scan for cards.
-        (status,TagType) = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
+        (status, TagType) = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
 
         # If a card is found.
         if status == MIFAREReader.MI_OK:
             print("[+] Card tap-on detected.")
 
             # Get the UID of the card.
-            (status,uid) = MIFAREReader.MFRC522_Anticoll()
+            (status, uid) = MIFAREReader.MFRC522_Anticoll()
 
             # If we have the UID, continue.
             if status == MIFAREReader.MI_OK:
