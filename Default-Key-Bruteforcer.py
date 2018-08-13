@@ -7,7 +7,7 @@ continue_reading = True
 # Capture SIGINT for cleanup when the script is aborted.
 def end_read(signal,frame):
     global continue_reading
-    print "[!] INTERRUPT [!] - Ctrl+C captured, stopping program and cleaning up."
+    print("[!] INTERRUPT [!] - Ctrl+C captured, stopping program and cleaning up.")
     continue_reading = False
     GPIO.cleanup()
 
@@ -18,9 +18,9 @@ signal.signal(signal.SIGINT, end_read)
 MIFAREReader = MFRC522.MFRC522()
 
 # Welcome message.
-print ("[i] RFID Key Bruteforcer.")
-print ("[i] Written by Matthew Brittain, built on https://github.com/mxgxw/MFRC522-python.")
-print ("[i] Press Ctrl-C to stop the program.")
+print("[i] RFID Key Bruteforcer.")
+print("[i] Written by Matthew Brittain, built on https://github.com/mxgxw/MFRC522-python.")
+print("[i] Press Ctrl-C to stop the program.")
 
 # This loop keeps checking for chips. If one is near it will get the UID and authenticate.
 while continue_reading:
