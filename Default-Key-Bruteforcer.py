@@ -53,19 +53,18 @@ while continue_reading:
                 # key = [0xFF,0xFF,0xFF,0xFF,0xFF,0xFF]
 
                 # Strip the imported UID of commas.
-                keya = [byte.strip() for byte in newline.split(',')]
-                keyanew = []
-                for k in keya:
-                    nk = k.replace(' ','')
-                    keyanew.append(nk)
-                key = [int(byte2,16) for byte2 in keyanew]
-                print("[i] Trying the key: " + str(key) + ". Please tap RFID card on now.")
+                keyold = [int(byte.strip(), 16) for byte in newline.split(',')]
+                keynew = []
+                for key in keyold:
+                    newkey = key.replace(' ','')
+                    keynew.append(newkey)
+                print("[i] Trying the key: " + str(keynew) + ". Please tap RFID card on now.")
                 
                 # Select the scanned tag.
                 MIFAREReader.MFRC522_SelectTag(uid)
 
                 # Authenticate.
-                status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 8, key, uid)
+                status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 8, keynew, uid)
 
                 # Check if authenticated.
                 if status == MIFAREReader.MI_OK:
