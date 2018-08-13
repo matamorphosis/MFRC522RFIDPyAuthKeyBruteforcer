@@ -1,6 +1,6 @@
 #!/bin/python
 
-import RPi.GPIO as GPIO, mfrc522, signal, sys, time
+import RPi.GPIO as GPIO, mfrc522, signal, sys, time, re
 
 continue_reading = True
 
@@ -33,6 +33,10 @@ while continue_reading:
         sys.exit("[-] Failed to open file keys.txt.")
     
     for newline in newlines:
+        hexregex = re.search(r"[0-9a-fA-F]{2}\,[0-9a-fA-F]{2}\,[0-9a-fA-F]{2}\,[0-9a-fA-F]{2}\,[0-9a-fA-F]{2}\,[0-9a-fA-F]{2}")
+        unless hexregex:
+            sys.exit("[-] The contents of the file are not in the correct format.")
+        
         # Scan for cards.
         (status, TagType) = MIFAREReader.MFRC522_Request(MIFAREReader.PICC_REQIDL)
 
@@ -53,18 +57,14 @@ while continue_reading:
                 # key = [0xFF,0xFF,0xFF,0xFF,0xFF,0xFF]
 
                 # Strip the imported UID of commas.
-                keyold = [int(byte.strip(), 16) for byte in newline.split(',')]
-                keynew = []
-                for key in keyold:
-                    newkey = key.replace(' ','')
-                    keynew.append(newkey)
-                print("[i] Trying the key: " + str(keynew) + ". Please tap RFID card on now.")
+                key = [int(byte.strip(), 16) for byte in newline.split(',')]
+                print("[i] Trying the key: " + str(key) + ". Please tap RFID card on now.")
                 
                 # Select the scanned tag.
                 MIFAREReader.MFRC522_SelectTag(uid)
 
                 # Authenticate.
-                status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 8, keynew, uid)
+                status = MIFAREReader.MFRC522_Auth(MIFAREReader.PICC_AUTHENT1A, 8, key, uid)
 
                 # Check if authenticated.
                 if status == MIFAREReader.MI_OK:
