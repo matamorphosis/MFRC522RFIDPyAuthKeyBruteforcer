@@ -1,6 +1,6 @@
 #!/bin/python
 
-import RPi.GPIO as GPIO, MFRC522, signal, ast, sys, time
+import RPi.GPIO as GPIO, MFRC522, signal, sys, time
 
 continue_reading = True
 
