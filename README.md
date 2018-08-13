@@ -3,10 +3,8 @@ Just a simple RFID authentication key brute-force program written in python, as 
 
 Usage:
 
-Add any keys you wish to test to the keys.txt file. They must be in the following format:
-a0,a1,a2,a3,a4,a5
-
-So remove any hex nonsense like \x or 0x from the front.
+Add any keys you wish to test to the keys.txt file. They must be in the following format with 6 hex chars, seperated by commas exclusive of any \x or 0x at the front:
+ff,ff,ff,ff,ff,ff
 
 Make sure to have an Mifare RC522 RFID Reader setup and running in order to use this software.
 This software is built on top of https://github.com/mxgxw/MFRC522-python.
