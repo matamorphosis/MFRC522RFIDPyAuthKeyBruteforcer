@@ -1,10 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
 
-import RPi.GPIO as GPIO
-import spi
-import signal
-import time
+import RPi.GPIO as GPIO, spi
   
 class MFRC522:
   NRSTPD = 22
