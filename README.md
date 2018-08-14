@@ -18,3 +18,5 @@ Lastly, clone SPI-Py from the following repository:
 https://github.com/lthiery/SPI-Py
 - Install with the following command:
 - root@linux:/Downloads/SPI-Py# python setup.py install
+
+As can be seen in the latest commit of the main program, a pure brute-force option is now available which runs through all 274,941,996,890,625, calculated by (255^6), possibililities. This option is not recommended for just one device such as a raspberry pi, as it will take years to crack. However, a more powerful computer may be able to run through these options much quicker.
