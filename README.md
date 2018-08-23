@@ -1,6 +1,10 @@
 # MFRC522PythonAuthKeyBruteforcer
 Just a simple RFID authentication key brute-force program written in python, as all the ones I found were written in C. This is much more user friendly
 
+Required Hardware:
+- Mifare RC522 RFID Reader
+- Raspberry Pi, or a controller with GPIO pins ideally running some form of debian linux.
+
 Usage:
 
 Add any keys you wish to test to the keys.txt file. They must be in the following format with 6 hex chars, seperated by commas exclusive of any \x or 0x at the front:
