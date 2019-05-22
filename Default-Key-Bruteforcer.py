@@ -1,6 +1,6 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 
-import RPi.GPIO as GPIO, mfrc522, signal, sys, time, re, argparse, thread
+import RPi.GPIO as GPIO, mfrc522, signal, sys, time, re, argparse, threading
 
 continue_reading = True
 allcombos = []
@@ -19,15 +19,19 @@ def welcome():
 	print("[i] Press Ctrl-C to stop the program.")
 	
 def file_open(input_file):
+	
 	try:
 		with open(input_file) as lines:
 			newlines = lines.read().splitlines()
+			
 			for line in newlines:
 				hexregex = re.search(r"[0-9a-fA-F]{2}\,[0-9a-fA-F]{2}\,[0-9a-fA-F]{2}\,[0-9a-fA-F]{2}\,[0-9a-fA-F]{2}\,[0-9a-fA-F]{2}", line)
+				
 				if not hexregex:
 					sys.exit("[-] The contents of the file are not in the correct format.")
+				
 				else:
-					thread.start_new_thread(Reader(newline, 1))
+					thread.start_new_thread(Reader(newline, True))
 
 	except:
 		sys.exit("[-] Failed to open file: " + input_file + ".")
@@ -48,13 +52,14 @@ def tempcombo(t1, t2, t3, t4, t5, t6):
 	tempcombo.temp.append(i6)
 
 def Reader(attempt, ishex):
-	
 	# Hook the SIGINT.
 	signal.signal(signal.SIGINT, end_read)
-
+	
 	# Create an object of the class MFRC522.
 	MIFAREReader = mfrc522.MFRC522()
+	
 	# This loop keeps checking for chips. If one is near it will get the UID and authenticate.
+	
 	while continue_reading:
 			
 		# Scan for cards.
@@ -76,7 +81,7 @@ def Reader(attempt, ishex):
 				# This is the default key for authentication:
 				# key = [0xFF,0xFF,0xFF,0xFF,0xFF,0xFF]
 
-				if (ishex == 1):
+				if ishex:
 					# Strip the imported UID of commas.
 					key = [int(byte.strip(), 16) for byte in attempt.split(',')]
 				else:
@@ -102,51 +107,80 @@ def Reader(attempt, ishex):
 			#print("[-] Card not detected.")
 
 if args.file:
-	file = args.file
-	welcome()
-	file_open(file)
+	
+	try:
+		file = args.file
+		welcome()
+		file_open(file)
+	
+	except:
+		sys.exit("[-] Failed to load the provided file.")
 
 else:
-	file = "keys.txt"
-	welcome()
-	file_open(file)	
+	
+	try:
+		file = "keys.txt"
+		welcome()
+		file_open(file)
+	
+	except:
+		sys.exit("[-] Failed to load keys.txt.")
 	
 if (args.type == "pure"):
 	welcome()
-	print("[i] Pure brute force option selected... Generating all 274,941,996,890,625 combinations.")
+	print("[i] Pure brute force option selected... Generating all 274,941,996,890,625 combinations... Please be patient.")
 	i1 = 1
 	i2 = 1
 	i3 = 1
 	i4 = 1
 	i5 = 1
 	i6 = 1
-
-	while (i1 <= 255):
+	
+	while (i1 <= 254):
 		tempcombo(i1, i2, i3, i4, i5, i6)
-		thread.start_new_thread(Reader(tempcombo.temp, 0))
+		Thread_1 = threading.Thread(target=Reader, args=(tempcombo.temp, 0))
+		Thread_1.start()
+
 		while (i2 <= 254):
 			tempcombo(i1, i2, i3, i4, i5, i6)
-			thread.start_new_thread(Reader(tempcombo.temp, 0))
+			Thread_2 = threading.Thread(target=Reader, args=(tempcombo.temp, 0))
+			Thread_2.start()
+
 			while (i3 <= 254):
 				tempcombo(i1, i2, i3, i4, i5, i6)
-				thread.start_new_thread(Reader(tempcombo.temp, 0))
+				Thread_3 = threading.Thread(target=Reader, args=(tempcombo.temp, 0))
+				Thread_3.start()
+
 				while (i4 <= 254):
 					tempcombo(i1, i2, i3, i4, i5, i6)
-					thread.start_new_thread(Reader(tempcombo.temp, 0))
+					Thread_4 = threading.Thread(target=Reader, args=(tempcombo.temp, 0))
+					Thread_4.start()
+
 					while (i5 <= 254):
 						tempcombo(i1, i2, i3, i4, i5, i6)
-						thread.start_new_thread(Reader(tempcombo.temp, 0))
+						Thread_5 = threading.Thread(target=Reader, args=(tempcombo.temp, 0))
+						Thread_5.start()
+
 						while (i6 <= 254):
 							tempcombo(i1, i2, i3, i4, i5, i6)
-							thread.start_new_thread(Reader(tempcombo.temp, 0))
+							Thread_6 = threading.Thread(target=Reader, args=(tempcombo.temp, 0))
+							Thread_6.start()
+
 							i6 = i6 + 1
+
 						i6 = 1
 						i5 = i5 + 1
+
 					i5 = 1
 					i4 = i4 + 1
+
 				i4 = 1
 				i3 = i3 + 1
+
 			i3 = 1
 			i2 = i2 + 1
+
 		i2 = 1
 		i1 = i1 + 1
+
+	i1 = 1
