@@ -31,7 +31,8 @@ def file_open(input_file):
 					sys.exit("[-] The contents of the file are not in the correct format.")
 				
 				else:
-					thread.start_new_thread(Reader(newline, True))
+					Thread = threading.Thread(target=Reader, args=(line, True))
+					Thread.start()
 
 	except:
 		sys.exit("[-] Failed to open file: " + input_file + ".")
@@ -43,13 +44,9 @@ def end_read(signal, frame):
     GPIO.cleanup()
 
 def tempcombo(t1, t2, t3, t4, t5, t6):
-	tempcombo.temp = []
-	tempcombo.temp.append(i1)
-	tempcombo.temp.append(i2)
-	tempcombo.temp.append(i3)
-	tempcombo.temp.append(i4)
-	tempcombo.temp.append(i5)
-	tempcombo.temp.append(i6)
+	temp_combo = []
+	temp_combo.extend([i1, i2, i3, i4, i5, i6])
+	return temp_combo
 
 def Reader(attempt, ishex):
 	# Hook the SIGINT.
@@ -137,33 +134,33 @@ if (args.type == "pure"):
 	i6 = 1
 	
 	while (i1 <= 254):
-		tempcombo(i1, i2, i3, i4, i5, i6)
-		Thread_1 = threading.Thread(target=Reader, args=(tempcombo.temp, 0))
+		temp_combo = tempcombo(i1, i2, i3, i4, i5, i6)
+		Thread_1 = threading.Thread(target=Reader, args=(temp_combo, False))
 		Thread_1.start()
 
 		while (i2 <= 254):
-			tempcombo(i1, i2, i3, i4, i5, i6)
-			Thread_2 = threading.Thread(target=Reader, args=(tempcombo.temp, 0))
+			temp_combo = tempcombo(i1, i2, i3, i4, i5, i6)
+			Thread_2 = threading.Thread(target=Reader, args=(temp_combo, False))
 			Thread_2.start()
 
 			while (i3 <= 254):
-				tempcombo(i1, i2, i3, i4, i5, i6)
-				Thread_3 = threading.Thread(target=Reader, args=(tempcombo.temp, 0))
+				temp_combo = tempcombo(i1, i2, i3, i4, i5, i6)
+				Thread_3 = threading.Thread(target=Reader, args=(temp_combo, False))
 				Thread_3.start()
 
 				while (i4 <= 254):
-					tempcombo(i1, i2, i3, i4, i5, i6)
-					Thread_4 = threading.Thread(target=Reader, args=(tempcombo.temp, 0))
+					temp_combo = tempcombo(i1, i2, i3, i4, i5, i6)
+					Thread_4 = threading.Thread(target=Reader, args=(temp_combo, False))
 					Thread_4.start()
 
 					while (i5 <= 254):
-						tempcombo(i1, i2, i3, i4, i5, i6)
-						Thread_5 = threading.Thread(target=Reader, args=(tempcombo.temp, 0))
+						temp_combo = tempcombo(i1, i2, i3, i4, i5, i6)
+						Thread_5 = threading.Thread(target=Reader, args=(temp_combo, False))
 						Thread_5.start()
 
 						while (i6 <= 254):
-							tempcombo(i1, i2, i3, i4, i5, i6)
-							Thread_6 = threading.Thread(target=Reader, args=(tempcombo.temp, 0))
+							temp_combo = tempcombo(i1, i2, i3, i4, i5, i6)
+							Thread_6 = threading.Thread(target=Reader, args=(temp_combo, False))
 							Thread_6.start()
 
 							i6 = i6 + 1
