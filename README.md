@@ -1,4 +1,8 @@
+**If you're enjoying this tool, feel free to buy me a cup of coffee :)**  
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/matamorphosis?locale.x=en_AU)
+
 # MFRC522PythonAuthKeyBruteforcer
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)  
 Just a simple RFID authentication key brute-force program written in python, as all the ones I found were written in C. This is much more user friendly
 
 Required Hardware:
