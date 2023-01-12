@@ -21,7 +21,7 @@ In the Raspberry Pi config, make sure to enable the SPI Interface
 
 Lastly, clone SPI-Py from the following repository:
 https://github.com/lthiery/SPI-Py
-- It is imperative you rollback to the following to the following repository:
+- It is imperative you rollback to the following repository:
 - root@linux:/Downloads/SPI-Py# git checkout 8cce26b9ee6e69eb041e9d5665944b88688fca68
 - Then Install with the following command:
 - root@linux:/Downloads/SPI-Py# python setup.py install
