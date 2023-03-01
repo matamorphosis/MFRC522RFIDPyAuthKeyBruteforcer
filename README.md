@@ -31,15 +31,15 @@ root@linux:/Downloads/SPI-Py# python setup.py install
 ```
 
 As can be seen in the latest commit of the main program, a pure brute-force option is now available which runs through all 274,941,996,890,625, calculated by (255^6), possibililities. This option is not recommended for just one device such as a raspberry pi, as it will take extremely long to crack. However, a more powerful computer may be able to run through these options much quicker. There are two options within the pure bruteforce option: ascending and descending.
-- Ascending: Increases from `0,0,0,0,0,0` to `255,255,255,255,255,255`
-- Descending: Decreases from `255,255,255,255,255,255` to `0,0,0,0,0,0`
+- **Ascending:** Increases from `0,0,0,0,0,0` to `255,255,255,255,255,255`
+- **Descending:** Decreases from `255,255,255,255,255,255` to `0,0,0,0,0,0`
 
 ## KNOWN ISSUE - PLEASE READ
-There is a strange known issue, when you first run the program, where the program keeps attempting the very first key, for ascending this is 1,1,1,1,1,1 and descending this is 255,255,255,255,255,255. While this bug is being fixed a workaround is to remove the card from the reader, wait a couple of seconds and it will start to increase with each attempt. This is only a requirement once. The following image shows an example of this. Notice the first 6 attempts have the same key, and afterwards is when I removed the card, and then tapped it on again, and the numbers started to increase.
+There is a strange known issue, when you first run the program, where the program keeps attempting the very first key, for ascending this is `1,1,1,1,1,1` and descending this is `255,255,255,255,255,255`. While this bug is being fixed a workaround is to remove the card from the reader, wait a couple of seconds and it will start to increase with each attempt. This is only a requirement once. The following image shows an example of this. Notice the first 6 attempts have the same key, and afterwards is when I removed the card, and then tapped it on again, and the numbers started to increase.
 
 ![Alt text](photos/Asc-Err.png?raw=true "Error")
 
-Lastly, if you want proof everything is working correctly, I recommend using a blank card with the default authentication key, which is 255,255,255,255,255,255. Choose the descending pure brute force option, or use the file option and provide a file with the default key. You should get a response like the following:
+Lastly, if you want proof everything is working correctly, I recommend using a blank card with the default authentication key, which is `255,255,255,255,255,255`. Choose the descending pure brute force option, or use the file option and provide a file with the default key. You should get a response like the following:
 
 ![Alt text](photos/Desc-Success.png?raw=true "Success")
 
