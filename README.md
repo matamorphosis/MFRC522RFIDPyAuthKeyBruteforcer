@@ -27,7 +27,7 @@ root@linux:/Downloads/SPI-Py# git checkout 8cce26b9ee6e69eb041e9d5665944b88688fc
 ```
 - Then Install with the following command:
 ```console
-- root@linux:/Downloads/SPI-Py# python setup.py install
+root@linux:/Downloads/SPI-Py# python setup.py install
 ```
 
 As can be seen in the latest commit of the main program, a pure brute-force option is now available which runs through all 274,941,996,890,625, calculated by (255^6), possibililities. This option is not recommended for just one device such as a raspberry pi, as it will take extremely long to crack. However, a more powerful computer may be able to run through these options much quicker. There are two options within the pure bruteforce option: ascending and descending.
